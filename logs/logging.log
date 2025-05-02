@@ -1,1 +1,7 @@
 [2025-05-02 09:42:40,120: INFO: main: Welcome to our data science project]
+[2025-05-02 11:06:05,350: INFO: common: config/config.yaml file loaded sucessfully]
+[2025-05-02 11:06:05,352: INFO: common: params.yaml file loaded sucessfully]
+[2025-05-02 11:06:05,354: INFO: common: params.yaml file loaded sucessfully]
+[2025-05-02 11:06:05,355: INFO: common: Directory artifacts created]
+[2025-05-02 11:06:05,356: INFO: common: Directory artifacts/data_ingestion created]
+[2025-05-02 11:06:05,604: INFO: 3033194336: artifacts/data_ingestion/data.zip downloaded]
