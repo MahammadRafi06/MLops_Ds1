@@ -1,7 +1,8 @@
 from src.data_science.constants import CONFIG_FILE_PATH, SCHEMA_FILE_PATH, PARAMS_FILE_PATH
 from src.data_science.utils.common import read_yaml, create_dir
-from src.data_science.entity.config_entity import (DataIngestionConfig)
-from src.data_science.entity.config_entity import (DataValidationConfig)
+from src.data_science.entity.config_entity import (DataIngestionConfig,DataValidationConfig, DataTransformationConfig)
+from src.data_science.constants import CONFIG_FILE_PATH, SCHEMA_FILE_PATH, PARAMS_FILE_PATH
+from src.data_science.utils.common import read_yaml, create_dir
 class ConfigurationManager:
     def __init__(self, config_filepath=CONFIG_FILE_PATH, schema_file_path= SCHEMA_FILE_PATH, params_file_path=PARAMS_FILE_PATH ):
         
@@ -32,3 +33,13 @@ class ConfigurationManager:
               all_schema=schema
         )
         return data_validation_config
+    
+    def get_datatransformation_config(self)-> DataTransformationConfig:
+        config = self.config.data_transformation
+        print(f"config: {config}")
+        create_dir([config.root_dir])
+        data_transformation_config = DataTransformationConfig(
+            root_dir= config.root_dir,
+            data_path=config.data_path,
+        )
+        return data_transformation_config
