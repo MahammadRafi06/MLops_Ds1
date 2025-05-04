@@ -2,3 +2,5 @@
 sec18/
 artifacts/
 logs/
+mlruns/
+.env

@@ -1,18 +1,25 @@
 from src.data_science.constants import CONFIG_FILE_PATH, SCHEMA_FILE_PATH, PARAMS_FILE_PATH
-from src.data_science.utils.common import read_yaml, create_dir
-from src.data_science.entity.config_entity import (DataIngestionConfig,DataValidationConfig, DataTransformationConfig,ModelTrainerConfig )
+from src.data_science.utils.common import read_yaml, create_dir, read_envfile
+from src.data_science.entity.config_entity import (DataIngestionConfig,
+                                                   DataValidationConfig, 
+                                                   DataTransformationConfig,
+                                                   ModelTrainerConfig,
+                                                   ModelEvaluationConfig
+                                                   )
 from src.data_science.constants import CONFIG_FILE_PATH, SCHEMA_FILE_PATH, PARAMS_FILE_PATH
 from src.data_science.utils.common import read_yaml, create_dir
 from src.data_science.constants import CONFIG_FILE_PATH, SCHEMA_FILE_PATH, PARAMS_FILE_PATH
 from src.data_science.utils.common import read_yaml, create_dir
+import os 
+from pathlib import Path
 class ConfigurationManager:
     def __init__(self, config_filepath=CONFIG_FILE_PATH, schema_file_path= SCHEMA_FILE_PATH, params_file_path=PARAMS_FILE_PATH ):
         
         self.config = read_yaml(config_filepath)
         self.params = read_yaml(params_file_path)
         self.schema = read_yaml(schema_file_path)
-        
-        create_dir([self.config.artifacts_toot])
+        self.envs = read_envfile(Path(self.config.env_file_path))  
+        create_dir([self.config.artifacts_root])
         
     def get_dataingestion_config(self)-> DataIngestionConfig:
         config = self.config.data_ingestion
@@ -61,4 +68,18 @@ class ConfigurationManager:
         )
         return model_trainer_config
         
-    
+    def get_modelevaludation_config(self) -> ModelEvaluationConfig:
+        config = self.config.model_evaluation
+        schema = self.schema.TARGET_COLUMN
+        params = self.params.ElasticNet
+        create_dir([config.root_dir])
+        modelevaluation_config = ModelEvaluationConfig(
+                root_dir= config.root_dir,
+                test_data_path = config.test_data_path,
+                model_path = config.model_path,
+                metric_file_name = config.metric_file_name,
+                all_params = params,
+                mlflow_uri = self.envs["MLFLOW_TRACHING_URI"],
+                target_column = schema
+        )
+        return modelevaluation_config

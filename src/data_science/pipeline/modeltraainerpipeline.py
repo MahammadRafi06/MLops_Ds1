@@ -10,5 +10,5 @@ class ModelTrainingPipeline:
     def initiate_model_training(self):
         config = ConfigurationManager()
         model_trainer_config = config.get_modeltrainer_config()
-        data_transofrmation = ModelTrainer(model_trainer_config)
-        data_transofrmation.model_training()
+        model_training = ModelTrainer(model_trainer_config)
+        model_training.model_training()

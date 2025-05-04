@@ -1,4 +1,5 @@
-artifacts_toot: artifacts
+artifacts_root: artifacts
+env_file_path: ".env"
 data_ingestion:
   root_dir: artifacts/data_ingestion
   source_URL: https://archive.ics.uci.edu/static/public/186/wine+quality.zip
@@ -20,5 +21,9 @@ model_trainer:
   test_data_path: artifacts/data_transformation/test.csv
   model_name: model.joblib 
 
-
+model_evaluation:
+  root_dir:  artifacts/model_evaluation
+  test_data_path: artifacts/data_transformation/test.csv
+  model_path: artifacts/model_trainer/model.joblib
+  metric_file_name: artifacts/model_evaluation/metric.json
 
