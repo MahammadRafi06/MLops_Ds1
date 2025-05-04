@@ -24,7 +24,7 @@ list_of_files = [".github/workflows/.gitkeep",
                  "requirements.txt",
                  "setup.py",
                  "research/research.ipynb",
-                 "template/index.html"
+                 "templates/index.html"
                  ]
 
 for file_path in list_of_files:
